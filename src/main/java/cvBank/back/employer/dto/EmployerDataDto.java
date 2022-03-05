@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateEmployerDto {
+public class EmployerDataDto {
 	ApplicantInfoDto applicantInfoDto;
 	CompanyInfoDto companyInfoDto;
 }

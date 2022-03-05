@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AddCVCollectionDto {
+public class ResponseEmployerCVsDto {
 	String login;
 	Map<String, List<String>> cvCollections; 
 }
