@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
-public class UpdateEmployerDto {
-	ApplicantInfoDto applicantInfoDto;
-	CompanyInfoDto companyInfoDto;
+public class ApplicantInfoDto {
+	String email;
+	String firstName;
+    String lastName;
+    String position;
+    String phone;
 }

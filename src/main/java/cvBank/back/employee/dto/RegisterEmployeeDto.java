@@ -1,4 +1,4 @@
-package cvBank.back.employer.dto;
+package cvBank.back.employee.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +8,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class UpdateEmployerDto {
-	ApplicantInfoDto applicantInfoDto;
-	CompanyInfoDto companyInfoDto;
+
+public class RegisterEmployeeDto {
+
+	String email;
+	String firstName;
+	String lastName;
+	String password;
 }
