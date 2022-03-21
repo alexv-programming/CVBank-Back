@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
-public class ResponseRegLoginDto {
+public class ResponseRegLoginDtoEmployee {
 	
 	String email;
 	String firstName;
