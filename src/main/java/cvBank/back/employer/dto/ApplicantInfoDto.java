@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ApplicantInfoDto {
-	String email;
 	String firstName;
     String lastName;
     String position;

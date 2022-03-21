@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class EmployerDataDto {
-	ApplicantInfoDto applicantInfoDto;
-	CompanyInfoDto companyInfoDto;
+	String email;
+	ApplicantInfoDto applicantInfo;
+	CompanyInfoDto companyInfo;
 }

@@ -3,6 +3,9 @@ package cvBank.back.employer.service;
 import cvBank.back.employer.dto.ResponseEmployerCVsDto;
 import cvBank.back.employer.dto.RegisterEmployerDto;
 import cvBank.back.employer.dto.ResponseEmployerLogRegDto;
+
+import java.util.List;
+
 import cvBank.back.employer.dto.EmployerDataDto;
 
 public interface EmployerAccountingService {
@@ -18,5 +21,7 @@ public interface EmployerAccountingService {
 	
 	void deleteEmployer(String employerId);
 	
-	EmployerDataDto findEmployer(String companyName);
+	List<EmployerDataDto> findEmployer(String companyName);
+
+	ResponseEmployerLogRegDto changeLogin(String authorization2, String newLogin);
 }

@@ -15,6 +15,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ResponseEmployerLogRegDto {
+	String email;
 	ApplicantInfoDto applicantInfo;
 	CompanyInfoDto companyInfo;
 	Map<String, List<String>> cvCollections; 

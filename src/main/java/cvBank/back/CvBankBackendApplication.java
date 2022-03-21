@@ -9,12 +9,12 @@ import cvBank.back.employer.dao.EmployerAccountingMongoRepository;
 @SpringBootApplication
 public class CvBankBackendApplication {
 	
-	EmployerAccountingMongoRepository employerRepository;
-	
-	@Autowired
-	public CvBankBackendApplication(EmployerAccountingMongoRepository employerRepository) {
-		this.employerRepository = employerRepository;
-	}
+//	EmployerAccountingMongoRepository employerRepository;
+//	
+//	@Autowired
+//	public CvBankBackendApplication(EmployerAccountingMongoRepository employerRepository) {
+//		this.employerRepository = employerRepository;
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CvBankBackendApplication.class, args);

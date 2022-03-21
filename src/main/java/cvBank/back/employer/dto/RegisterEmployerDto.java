@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class RegisterEmployerDto {
+	String email;
 	ApplicantInfoDto applicantInfo;
 	CompanyInfoDto companyInfo;
 	String password;

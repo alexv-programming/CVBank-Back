@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ApplicantInfo {
-	String email;
+//	String email;
 	String firstName;
     String lastName;
     String position;
