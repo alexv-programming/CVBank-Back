@@ -5,6 +5,7 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import cvBank.back.employer.dto.ResponseEmployerCVsDto;
 import cvBank.back.employer.dto.ResponseEmployerLogRegDto;
 import cvBank.back.employer.service.EmployerAccountingService;
 
+@Controller
 @RestController
 @RequestMapping("/cvbank/employer")
 public class EmployerAccountingController {
@@ -38,7 +40,7 @@ public class EmployerAccountingController {
 	}
 	
 	@PostMapping("/signin")
-	ResponseEmployerLogRegDto loginEmployer(@RequestHeader("Authorization2") String login) {
+	ResponseEmployerLogRegDto loginEmployer(@RequestHeader("Authorization") String login) {
 		return service.loginEmployer(login);
 	}
 	
@@ -68,8 +70,12 @@ public class EmployerAccountingController {
 	}
 	
 	@PutMapping("/login")
-	ResponseEmployerLogRegDto changeLogin(@RequestHeader String authorization2, @RequestHeader("X-Login") String newLogin) {
-		return service.changeLogin(authorization2, newLogin);
+	ResponseEmployerLogRegDto changeLogin(@RequestHeader String authorization, @RequestHeader("X-Login") String newLogin) {
+		return service.changeLogin(authorization, newLogin);
 	}
-
+	
+	@PutMapping("/pass")
+	void ChangePassword(@RequestHeader String authorization, @RequestHeader("Old-Pass") String oldPassword, @RequestHeader("X-Password") String newPassword) {
+		service.changePassword(authorization, oldPassword, newPassword);
+	}
 }
