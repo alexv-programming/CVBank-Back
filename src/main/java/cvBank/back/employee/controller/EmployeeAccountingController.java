@@ -26,11 +26,11 @@ public class EmployeeAccountingController {
 	public EmployeeAccountingController(EmployeeAccountingService service) {
 		this.service = service;
 	}
-	@PostMapping("/register")
+	@PostMapping("/signup")
 	public ResponseRegLoginDtoEmployee registerUser(@RequestBody RegisterEmployeeDto registerNewEmployee) {
 		return service.registerNewEmployee(registerNewEmployee);
 	}
-	@PostMapping("/login")
+	@PostMapping("/signin")
 	public ResponseRegLoginDtoEmployee login(@RequestHeader("Authorization") String login) {
 		return service.loginEmployee(login);
 	}

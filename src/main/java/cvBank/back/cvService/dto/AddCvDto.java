@@ -27,9 +27,9 @@ public class AddCvDto {
 	String position;
 	String preambule;
 	Set<String> skills;
-	List<Experience> experiences;
-	List<Education> education;
-	List<Other> other;
+	Set<ExperienceDto> experience;
+	Set<EducationDto> educations;
+	OtherDto other;
 	List<String> links;
 	int template;
 }
