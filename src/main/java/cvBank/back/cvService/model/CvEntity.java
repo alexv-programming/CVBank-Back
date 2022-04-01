@@ -5,9 +5,7 @@ import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 
-import cvBank.back.cvService.dto.Education;
-import cvBank.back.cvService.dto.Experience;
-import cvBank.back.cvService.dto.Other;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,9 +33,10 @@ public class CvEntity {
 	String position;
 	String preambule;
 	Set<String> skills;
-	List<Experience> experiences;
-	List<Education> education;
-	List<Other> other;
+	Set<Experience> experience;
+	Set<Education> educations;
+	Other other;
 	List<String> links;
+	int template;
 
 }
