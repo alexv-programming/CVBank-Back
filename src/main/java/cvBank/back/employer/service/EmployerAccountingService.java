@@ -24,4 +24,6 @@ public interface EmployerAccountingService {
 	List<EmployerDataDto> findEmployer(String companyName);
 
 	ResponseEmployerLogRegDto changeLogin(String authorization2, String newLogin);
+
+	void changePassword(String authorization, String oldPassword, String newPassword);
 }

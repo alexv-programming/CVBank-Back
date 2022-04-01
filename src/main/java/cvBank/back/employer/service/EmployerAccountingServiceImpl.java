@@ -15,6 +15,8 @@ import cvBank.back.employer.dto.ResponseEmployerCVsDto;
 import cvBank.back.employer.dto.ResponseEmployerLogRegDto;
 import cvBank.back.employer.dto.exceptions.EmployerExistsException;
 import cvBank.back.employer.dto.exceptions.EmployerNotFoundException;
+import cvBank.back.employer.dto.exceptions.TheSamePasswordException;
+import cvBank.back.employer.dto.exceptions.WrongPasswordException;
 import cvBank.back.employer.model.ApplicantInfo;
 import cvBank.back.employer.model.CompanyInfo;
 import cvBank.back.employer.model.EmployerAccount;
@@ -103,6 +105,20 @@ public class EmployerAccountingServiceImpl implements EmployerAccountingService 
 		repository.save(employerAccount);
 		repository.deleteById(employerId);
 		return modelMapper.map(employerAccount, ResponseEmployerLogRegDto.class);
+	}
+
+	@Override
+	public void changePassword(String authorization, String oldPassword, String newPassword) {
+		EmployerAccount employerAccount = repository.findById(authorization)
+				.orElseThrow(() -> new EmployerNotFoundException(authorization));
+		if(!employerAccount.getPassword().equals(oldPassword)) {
+			throw new WrongPasswordException();
+		}
+		if(newPassword.equals(oldPassword)) {
+			throw new TheSamePasswordException();
+		}
+		employerAccount.setPassword(newPassword);
+		repository.save(employerAccount);
 	}
 
 }
