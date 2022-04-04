@@ -73,6 +73,7 @@ public class EmployerAccountingServiceImpl implements EmployerAccountingService 
 	public ResponseEmployerCVsDto addCVtoCollection(String employerId, String collectionName, String cvid) {
 		EmployerAccount employerAccount = repository.findById(employerId)
 				.orElseThrow(() -> new EmployerNotFoundException(employerId));
+		//TODO check if cv exists
 		employerAccount.addCVtoCollection(collectionName, cvid);
 		repository.save(employerAccount);
 		return modelMapper.map(employerAccount, ResponseEmployerCVsDto.class);

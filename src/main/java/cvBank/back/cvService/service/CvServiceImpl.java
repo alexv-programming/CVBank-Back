@@ -1,15 +1,22 @@
 package cvBank.back.cvService.service;
 
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import cvBank.back.cvService.dao.CvRepository;
 import cvBank.back.cvService.dto.AddCvDto;
 import cvBank.back.cvService.dto.AddUpdateCvResponseDto;
+import cvBank.back.cvService.dto.AggregationDto;
 import cvBank.back.cvService.dto.UpdateCvDto;
 import cvBank.back.cvService.exceptions.NoSuchCvException;
 import cvBank.back.cvService.model.CvEntity;
@@ -18,7 +25,6 @@ import cvBank.back.cvService.model.Other;
 
 @Service
 public class CvServiceImpl implements CvService {
-
 	ModelMapper modelMapper;
 	CvRepository cvRepo;
 
@@ -59,18 +65,88 @@ public class CvServiceImpl implements CvService {
 	public void removeCv(String cvId) {
 		CvEntity cv = cvRepo.findById(cvId).orElseThrow(() -> new NoSuchCvException(cvId));
 		cvRepo.delete(cv);
-		
 	}
 
 	@Override
-	public AddUpdateCvResponseDto anonymizeCv(String cvId, Set<String> fieldsToAnonymize) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		CvEntity cv = cvRepo.findById(cvId).orElseThrow(() -> new NoSuchCvException(cvId));
-		cv.setFieldsToAnonymize(fieldsToAnonymize);
-		cvRepo.save(cv);
-		cv.getAnonymizedCv(fieldsToAnonymize);
-		return modelMapper.map(cv, AddUpdateCvResponseDto.class);
+	public AddUpdateCvResponseDto anonymizeCv(String cvId, Set<String> fieldsToAnonymize) {
+		CvEntity cvToAnonymize = cvRepo.findById(cvId).orElseThrow(() -> new NoSuchCvException(cvId));
+//		Query query = new Query();
+//		query.fields().include(cvToAnonymize)
+		cvToAnonymize.setAnanimizedFields(fieldsToAnonymize);
+		cvRepo.save(cvToAnonymize);
+//		CvEntity cvRes;
+		try {
+			cvToAnonymize.getWithoutAnanimizedFields();
+			return modelMapper.map(cvToAnonymize, AddUpdateCvResponseDto.class);
+		} catch ( SecurityException | IllegalArgumentException  e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsBySkills(Set<String> skills) {
+//		Set<CvEntity> res= new HashSet<>();
+//		for (Iterator<String> iterator = skills.iterator(); iterator.hasNext();) {
+//			String skill = (String) iterator.next();
+//			res.addAll(cvRepo.findBySkills(skill).collect(Collectors.toSet()));
+//		}
+//		return res.stream()
+		return cvRepo.findBySkillsIn(skills)
+				.map(cv -> modelMapper.map(cv, AddUpdateCvResponseDto.class))
+				.collect(Collectors.toSet());
+	}
 
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsByReadyToRelocate(String countryToRelocate) {
+		return cvRepo.findByIsRelocated(countryToRelocate)
+				.map(cv -> modelMapper.map(cv, AddUpdateCvResponseDto.class))
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsByVerified(String level) {
+		return cvRepo.findByVerificationLevel(level)
+				.map(cv -> modelMapper.map(cv, AddUpdateCvResponseDto.class))
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsByLocation(String place, Integer distance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsBySalary(Integer minSalary, Integer maxSalary) {
+		return cvRepo.findBySalaryBetween(minSalary, maxSalary)
+				.map(cv -> modelMapper.map(cv, AddUpdateCvResponseDto.class))
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsByPosition(String position) {
+		return cvRepo.findByPosition(position)
+				.map(cv -> modelMapper.map(cv, AddUpdateCvResponseDto.class))
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public AddUpdateCvResponseDto findCvById(String cvId) {
+		CvEntity cvEntity = cvRepo.findById(cvId).orElseThrow(() -> new NoSuchCvException(cvId));
+		//cvEntity.getWithoutAnanimizedFields();
+		return modelMapper.map(cvEntity, AddUpdateCvResponseDto.class);
+	}
+
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsByIds(Set<String> cvIds) {
+		return ((Collection<CvEntity>) cvRepo.findAllById(cvIds)).stream()
+				.map(cv -> modelMapper.map(cv, AddUpdateCvResponseDto.class))
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public Set<AddUpdateCvResponseDto> findCvsByAggregation(AggregationDto aggregationDto) {
+		// TODO Auto-generated method stub
+		return null;
 }
