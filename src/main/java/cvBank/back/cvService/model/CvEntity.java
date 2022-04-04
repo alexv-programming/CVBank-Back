@@ -1,10 +1,10 @@
 package cvBank.back.cvService.model;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
-
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = { "id" })
 
 public class CvEntity {
 	@Id
@@ -38,5 +38,25 @@ public class CvEntity {
 	Other other;
 	List<String> links;
 	int template;
+	Set<String> fieldsToAnonymize;
 
+	public CvEntity getAnonymizedCv(Set<String> fieldsToAnonymize) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		// Class klazz = Class.forName("CvEntity");
+		// fields.addAll(Arrays.asList(klazz.getDeclaredFields()));
+		//Field[] fieldsToDisplay = findFieldsByNames(fieldsToAnonymize);
+		
+		Field[] fields = CvEntity.class.getDeclaredFields();
+		for (Field f : fields) {
+			for (String s : fieldsToAnonymize) {
+				if (f.getName().equals(s)) {
+					f.set(this, null);
+				}
+			}
+		}
+		return this;
+	}
+
+	
+
+	
 }
