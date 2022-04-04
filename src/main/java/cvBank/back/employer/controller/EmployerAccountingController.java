@@ -40,17 +40,17 @@ public class EmployerAccountingController {
 	}
 	
 	@PostMapping("/signin")
-	ResponseEmployerLogRegDto loginEmployer(@RequestHeader("Authorization") String login) {
+	public ResponseEmployerLogRegDto loginEmployer(@RequestHeader("Authorization") String login) {
 		return service.loginEmployer(login);
 	}
 	
 	@PutMapping("/{employerId}")
-	ResponseEmployerLogRegDto updateEmployer(@PathVariable String employerId, @RequestBody EmployerDataDto updateEmployerDto) {
+	public ResponseEmployerLogRegDto updateEmployer(@PathVariable String employerId, @RequestBody EmployerDataDto updateEmployerDto) {
 		return service.updateEmployer(employerId, updateEmployerDto);
 	}
 	
 	@PutMapping("/{employerId}/collection/{collectionName}")
-	ResponseEmployerCVsDto addCVCollection(@PathVariable String employerId, @PathVariable String collectionName) {
+	public ResponseEmployerCVsDto addCVCollection(@PathVariable String employerId, @PathVariable String collectionName) {
 		return service.addCVCollection(employerId, collectionName);
 	}
 
@@ -60,22 +60,22 @@ public class EmployerAccountingController {
 	}
 	
 	@DeleteMapping("/{employerId}")
-	void deleteEmployer(@PathVariable String employerId) {
+	public void deleteEmployer(@PathVariable String employerId) {
 		service.deleteEmployer(employerId);
 	}
 	
 	@GetMapping("/company/{companyName}")
-	List<EmployerDataDto> findEmployer(@PathVariable String companyName)  {
+	public List<EmployerDataDto> findEmployer(@PathVariable String companyName)  {
 		return service.findEmployer(companyName);
 	}
 	
 	@PutMapping("/login")
-	ResponseEmployerLogRegDto changeLogin(@RequestHeader String authorization, @RequestHeader("X-Login") String newLogin) {
+	public ResponseEmployerLogRegDto changeLogin(@RequestHeader String authorization, @RequestHeader("X-Login") String newLogin) {
 		return service.changeLogin(authorization, newLogin);
 	}
 	
 	@PutMapping("/pass")
-	void ChangePassword(@RequestHeader String authorization, @RequestHeader("Old-Pass") String oldPassword, @RequestHeader("X-Password") String newPassword) {
+	public void ChangePassword(@RequestHeader String authorization, @RequestHeader("Old-Pass") String oldPassword, @RequestHeader("X-Password") String newPassword) {
 		service.changePassword(authorization, oldPassword, newPassword);
 	}
 }
