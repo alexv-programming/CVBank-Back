@@ -86,13 +86,10 @@ public class CvBankController {
 	public Set<AddUpdateCvResponseDto> findCvsByAggregation(@RequestBody AggregationDto aggregationDto) {
 		return cvService.findCvsByAggregation(aggregationDto);
     
+	}
 	@DeleteMapping("/{cvId}")
 	public void deleteCv(@PathVariable String cvId) {
 		cvService.removeCv(cvId);
 	}
 	
-	@PutMapping("/anonymizer/{cvId}")
-	public  AddUpdateCvResponseDto anonymizeCv(@PathVariable String cvId, @RequestBody Set<String> fieldsToAnonymize) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		return cvService.anonymizeCv(cvId, fieldsToAnonymize);
 	}
-}
