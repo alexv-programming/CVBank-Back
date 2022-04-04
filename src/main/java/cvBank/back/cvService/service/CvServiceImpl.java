@@ -51,7 +51,8 @@ public class CvServiceImpl implements CvService {
 		cvToUpdate.setOther(other);
 		cvToUpdate.setLinks(cv.getLinks());
 		cvToUpdate.setTemplate(cv.getTemplate());
-		return null;
+		cvRepo.save(cvToUpdate);
+		return modelMapper.map(cvToUpdate, AddUpdateCvResponseDto.class);
 	}
 
 	@Override
@@ -62,9 +63,14 @@ public class CvServiceImpl implements CvService {
 	}
 
 	@Override
-	public AddUpdateCvResponseDto anonymizeCv() {
-		// TODO Auto-generated method stub
-		return null;
+	public AddUpdateCvResponseDto anonymizeCv(String cvId, Set<String> fieldsToAnonymize) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		CvEntity cv = cvRepo.findById(cvId).orElseThrow(() -> new NoSuchCvException(cvId));
+		cv.setFieldsToAnonymize(fieldsToAnonymize);
+		cvRepo.save(cv);
+		cv.getAnonymizedCv(fieldsToAnonymize);
+		return modelMapper.map(cv, AddUpdateCvResponseDto.class);
 	}
+
+	
 
 }
