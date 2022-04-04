@@ -14,6 +14,8 @@ public interface CvService {
 	public AddUpdateCvResponseDto updateCv(UpdateCvDto cv, String cvId);
 	
 	public void removeCv(String cvId);
+	
+	public AddUpdateCvResponseDto anonymizeCv(String cvId, Set<String> fieldsToAnonymize) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
 	public AddUpdateCvResponseDto anonymizeCv(String cvId, Set<String> fieldsToAnonymize);
 

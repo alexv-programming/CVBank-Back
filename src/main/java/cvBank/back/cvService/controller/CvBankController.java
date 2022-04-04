@@ -3,6 +3,7 @@ package cvBank.back.cvService.controller;
 import java.util.Set;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -84,5 +85,14 @@ public class CvBankController {
 	@GetMapping("/cvs/aggregate")
 	public Set<AddUpdateCvResponseDto> findCvsByAggregation(@RequestBody AggregationDto aggregationDto) {
 		return cvService.findCvsByAggregation(aggregationDto);
+    
+	@DeleteMapping("/{cvId}")
+	public void deleteCv(@PathVariable String cvId) {
+		cvService.removeCv(cvId);
+	}
+	
+	@PutMapping("/anonymizer/{cvId}")
+	public  AddUpdateCvResponseDto anonymizeCv(@PathVariable String cvId, @RequestBody Set<String> fieldsToAnonymize) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		return cvService.anonymizeCv(cvId, fieldsToAnonymize);
 	}
 }

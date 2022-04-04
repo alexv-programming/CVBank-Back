@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = { "id" })
 
 public class CvEntity {
 	@Id
@@ -62,4 +61,5 @@ public class CvEntity {
 		}
 	}
 
+	
 }

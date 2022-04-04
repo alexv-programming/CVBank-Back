@@ -50,7 +50,25 @@ public class EmployeeAccountingController {
 		return service.findEmployeebyId(employeeId);
 	}
 	
+	@PutMapping("/login")
+	public ResponseRegLoginDtoEmployee changeLogin(@RequestHeader("X-Login") String newLogin, @RequestHeader("Authorization") String login) {
+		return service.changeLogin(newLogin, login);
+	}
 	
+	@PutMapping("/pass")
+	void ChangePassword(@RequestHeader("Authorization") String login, @RequestHeader("Old-Pass") String oldPassword, @RequestHeader("X-Password") String newPassword) {
+		service.changePassword(login, oldPassword, newPassword);
+	}
 	
+	@PutMapping("/{employeeId}/{cvId}")
+	public ResponseRegLoginDtoEmployee addCv(@PathVariable String employeeId, @PathVariable String cvId) {
+		return service.addCv(employeeId, cvId);
+	}
+	
+	@DeleteMapping("/{employeeId}/{cvId}")
+	public ResponseRegLoginDtoEmployee removeCv(@PathVariable String employeeId, @PathVariable String cvId) {
+		return service.removeCv(employeeId, cvId);
+	
+	}
 
 }

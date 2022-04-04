@@ -57,7 +57,8 @@ public class CvServiceImpl implements CvService {
 		cvToUpdate.setOther(other);
 		cvToUpdate.setLinks(cv.getLinks());
 		cvToUpdate.setTemplate(cv.getTemplate());
-		return null;
+		cvRepo.save(cvToUpdate);
+		return modelMapper.map(cvToUpdate, AddUpdateCvResponseDto.class);
 	}
 
 	@Override
@@ -148,6 +149,4 @@ public class CvServiceImpl implements CvService {
 	public Set<AddUpdateCvResponseDto> findCvsByAggregation(AggregationDto aggregationDto) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
 }

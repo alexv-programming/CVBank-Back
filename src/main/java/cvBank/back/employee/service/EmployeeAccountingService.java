@@ -15,6 +15,15 @@ public interface EmployeeAccountingService {
 	void deleteEmployee(String employeeId);
 	
 	ResponseRegLoginDtoEmployee findEmployeebyId(String employeeId);
+
+	ResponseRegLoginDtoEmployee changeLogin(String newLogin, String login);
+
+	void changePassword(String authorization, String oldPassword, String newPassword);
+
+	ResponseRegLoginDtoEmployee addCv(String employeeId, String cvId);
+
+	ResponseRegLoginDtoEmployee removeCv(String employeeId, String cvId);
+	
 	
 	
 }

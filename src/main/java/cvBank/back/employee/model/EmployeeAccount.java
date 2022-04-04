@@ -1,5 +1,6 @@
 package cvBank.back.employee.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,14 +24,14 @@ public class EmployeeAccount {
 	String firstName;
 	String lastName;
 	String password; 
-	List<String> employeesCV;
+	List<String> cv_id = new ArrayList<String>();
 	
 	
 	public boolean addCv(String cv) {
-		return employeesCV.add(cv);
+		return cv_id.add(cv);
 	}
 
 	public boolean removeCv(String cv) {
-		return employeesCV.remove(cv);
+		return cv_id.remove(cv);
 	}
 }
